@@ -1,0 +1,57 @@
+[{
+      "naam": "Restaurant De Blauwe Pauw",
+      "omschrijving": "Restaurant 'De Blauwe Pauw' is het restaurant van de Volksabdij. Wanneer u bij ons overnacht, zakelijk of met een groep verblijft, worden hier uw ontbijt, lunch, diner en borrel aan de bar geserveerd. Ook is 'De Blauwe Pauw' het start- of vertrekpunt van uw wandeling en fietstocht en de locatie voor uw feest of bruiloft. In de zomermaanden is het heerlijk vertoeven op ons groene terras en in de wintermaanden in de sfeervolle 'Serre'. Uw kinderen kunnen zich vermaken in onze speeltuin naast het terras en restaurant. Uiteraard moet u als u 'De Blauwe Pauw' bezoekt zeker één van onze eigen, unieke Volksabdij bieren of Dreijhop kaas proeven!",
+      "locatie": "Onze Lieve Vrouwe Ter Duinenlaan 199, 4641RM, Ossendrecht",
+      "lat" : 51.4086687,
+      "long" : 4.3446951,
+      "gangen": [
+      "start",
+      "voorgerecht",
+      "tussengerecht",
+      "hoofdgerecht",
+      "nagerecht"
+      ],
+      "fotos": [
+        "http://www.devolksabdij.nl/file-manager/picture/fw177h177ecfFFFFFF/54/Proef+Abdij+058.jpg",
+        "http://www.devolksabdij.nl/file-manager/picture/fw177h177ecfFFFFFF/261/DSC_0204.JPG",
+        "http://www.devolksabdij.nl/file-manager/picture/fw177h177ecfFFFFFF/256/31.jpg"
+      ],
+      "reacties": [{
+        "sterren": 5,
+        "body": "Heerlijk gegeten!",
+        "auteur": "joe@example.org",
+        "aangemaakt": 1397490980837
+      }, {
+        "sterren": 4,
+        "body": "Goede bediening.",
+        "auteur": "tim@example.org",
+        "aangemaakt": 1397490980837
+      }]
+    },
+    {
+      "naam": "Restaurant Boove en Beneeje",
+      "omschrijving": "In de warme en sfeervolle ambiance van restaurant Boove & Beneeje staat gezelligheid, warmte, kwaliteit en vriendelijkheid voorop. In ons restaurant kunt u in groot of klein gezelschap genieten van de lekkerste gerechten. Restaurant Boove & Beneeje biedt u de mogelijkheid om te steengrillen of om à la carte te eten. Bij het steengrillen bieden wij u een uitgebreid vis-, vlees-, en saladebuffet aan. Wanneer u kiest voor het steengrillen bepaalt u zelf wat en hoeveel u eet! Maar bij ons kunt u ook genieten van de lekkerste à la carte gerechten. Naast onze vaste kaart bieden wij u ook wisselende 3-gangen keuze menu’ s aan. Onze keuken serveert de traditionele gerechten met een moderne twist. Wij vinden het belangrijk dat onze gasten kunnen genieten van een avond tafelen en verwelkomen u dan ook graag in ons restaurant.",
+      "locatie": "Raadhuisstraat 139, 4631ND, Hoogerheide",
+      "lat" : 51.4226832,
+      "long" : 4.3234297,
+      "gangen": [
+      "start",
+      "voorgerecht",
+      "hoofdgerecht",
+      "nagerecht"
+      ],
+      "fotos": [
+        "http://www.boove-en-beneeje.nl/wp-content/uploads/2012/10/home11.jpg"
+      ],
+      "reacties": [{
+        "sterren": 5,
+        "body": "Heerlijk gegeten!",
+        "auteur": "joe@example.org",
+        "aangemaakt": 1397490980837
+      }, {
+        "sterren": 4,
+        "body": "Goede bediening.",
+        "auteur": "tim@example.org",
+        "aangemaakt": 1397490980837
+      }]
+    }]

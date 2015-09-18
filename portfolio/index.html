@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html ng-app="fietsRoutes">
+  <head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="application.css" />
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="google_maps.js"></script>
+    <script type="text/javascript" src="controllers.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyB4MUQwJdQj-X8GKiO13_BlplurgMImamY&language=NL-nl"></script>
+    <title>Fietsroute app</title>
+  </head>
+
+  <body ng-controller="RoutesController">
+	  <div class="container-fluid">
+    <!--  Header  -->
+    <header>
+      <h1 class="text-center">Fietsroutes</h1>
+      <!--<h2 class="text-center">een interactieve manier om culinaire fietsroutes te creeeren</h2>-->
+    </header>
+
+    <!--  Container  -->
+    <div class="list-group">
+		<!--  Map Container -->			
+			<div ng-controller="Map">
+				<div id="map"></div>
+				<div class="clearfix"></div>
+				<div class="btn-group">
+					<button class="btn btn-primary" ng-repeat="marker in markers" ng-click="openInfoWindow($event, marker, $index)">{{marker.title}}</button>
+				</div>
+			</div>
+	 
+	<div class="row">
+	<div class="col-xs-6">
+      <!--  Adressen  -->
+      <div>
+        <h3>{{adressen[locatie].naam}}</h3>
+            <div class="btn-group" ng-controller="GangenController">
+				<button ng-repeat="gang in adressen[locatie].gangen" class="btn btn-primary" ng-click="adresToevoegen(adressen[locatie],$index);calcRoute(order)">{{gang}}</button><br>
+			</div>
+
+        <!-- Foto Gallerij  -->
+		<div class="row">
+			<div class="col-xs-6 col-md-3" ng-repeat="foto in adressen[locatie].fotos">
+				<a ng-href="{{foto}}" class="thumbnail">
+					<img class="img-responsive" ng-src="{{foto}}" />
+				</a>
+			</div>
+		</div> <!-- einde Foto Gallerij -->
+
+        <!-- Adres gegevens  -->
+        <section ng-controller="TabController as tab">
+          <ul class="nav nav-pills">
+            <li ng-class="{ active:tab.isSet(1) }">
+              <a href ng-click="tab.setTab(1)">Omschrijving</a>
+            </li>
+            <li ng-class="{ active:tab.isSet(2) }">
+              <a href ng-click="tab.setTab(2)">Leeg</a>
+            </li>
+            <li ng-class="{ active:tab.isSet(3) }">
+              <a href ng-click="tab.setTab(3)">Reacties</a>
+            </li>
+          </ul>
+
+          <!--  Omschrijving tab inhoud  -->
+          <div ng-show="tab.isSet(1)">
+            <h4>Omschrijving</h4>
+            <blockquote>{{adressen[locatie].omschrijving}}</blockquote>
+          </div> <!-- einde Omschrijving -->
+
+          <!--  Leeg tab inhoud  -->
+          <div ng-show="tab.isSet(2)">
+			<h4>Leeg</h4>
+				<div>
+					leeg
+				</div>
+          </div> <!-- einde Leeg -->
+
+          <!--  Reacties tab inhoud  -->
+          <div ng-show="tab.isSet(3)">
+            <!--  Adres reacties -->
+            <ul>
+              <h4>Reacties</h4>
+              <li ng-repeat="reactie in adressen[locatie].reacties">
+                <blockquote>
+                  <strong>{{reactie.sterren}} Sterren</strong>
+                  {{reactie.body}}
+                  <cite class="clearfix">—{{reactie.auteur}} op {{reactie.aangemaakt | date }}</cite>
+                </blockquote>
+              </li>
+            </ul>
+
+            <!--  Review Form -->
+            <form name="reactieForm" ng-controller="ReactieController as reactieCtrl" ng-submit="reactieCtrl.reactieToevoegen(adres)">
+
+              <!--  Live Preview -->
+              <blockquote >
+                <strong>{{reactieCtrl.reactie.sterren}} Sterren</strong>
+                {{reactieCtrl.reactie.body}}
+                <cite class="clearfix">—{{reactieCtrl.reactie.auteur}}</cite>
+              </blockquote>
+
+              <!--  Reactie Formulier -->
+              <h4>Voeg reactie toe</h4>
+              <fieldset class="form-group">
+                <select ng-model="reactieCtrl.reactie.sterren" class="form-control" ng-options="sterren for sterren in [5,4,3,2,1]" title="Sterren">
+                  <option value>Geef adres sterren</option>
+                </select>
+              </fieldset>
+              <fieldset class="form-group">
+                <textarea ng-model="reactieCtrl.reactie.body" class="form-control" placeholder="Schrijf een korte reactie over het adres" title="Reactie"></textarea>
+              </fieldset>
+              <fieldset class="form-group">
+                <input ng-model="reactieCtrl.reactie.auteur" type="email" class="form-control" placeholder="naam@voorbeeld.nl" title="Email" />
+              </fieldset>
+              <fieldset class="form-group">
+                <input type="submit" class="btn btn-primary pull-right" value="Reactie toevoegen" />
+              </fieldset>
+            </form>
+          </div> <!-- einde Reacties -->
+
+        </section> <!-- einde Adres gegevens -->
+        
+		</div> <!-- einde Adressen -->
+	</div> <!-- einde col -->
+	<div class="col-xs-6">
+		<ul>
+			<li ng-repeat="regel in order">{{regel.soort}} bij {{regel.naam}}</li>
+		</ul>
+	  <!-- Progress bar -->
+	  <div>
+		  <div class="progress">
+		  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{procent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{procent}}%">{{procent}}%</div>
+		  </div>
+		  <div ng-show="checkReserveringKnop(procent)">
+			  <button class="btn btn-success" ng-click="reserveren()">Bevestig reservering</button>
+		  </div>
+		  
+		  <div ng-repeat="orderregel in order">
+		  <div class="alert alert-success alert-dismissible" role="alert" ng-show="checkGang(orderregel.naam)">
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{orderregel.soort}} bij <b>{{orderregel.naam}}</b> toegevoegd!
+		  </div>
+		  </div>
+		  
+	 </div> <!-- einde Progress bar -->
+	 
+	 <div id="routeBeschrijving"></div>
+	 
+	</div> <!-- einde col -->
+	</div> <!-- einde row -->
+		
+    </div> <!-- einde list-group -->
+    
+    </div> <!-- einde container -->
+  </body>
+</html>
